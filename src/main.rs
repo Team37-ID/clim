@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
     println!("{}", figure.unwrap());
 
     // Create a selectable options in the terminal
-    let items: Vec<&str> = vec!["Install", "Upgrade", "Uninstall"];
+    let items: Vec<&str> = vec!["Install", "Upgrade", "Uninstall", "Check version"];
     let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Select an item")
         .items(&items)
@@ -20,7 +20,9 @@ fn main() -> std::io::Result<()> {
         .interact_on_opt(&Term::stderr())?;
 
     match selection {
-        Some(index) => println!("User selected item: {}", items[index]),
+        Some(index) => {
+            println!("User selected item: {}", items[index]);
+        }
         None => println!("User did not select any item"),
     }
 
