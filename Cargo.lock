@@ -110,6 +110,7 @@ name = "clim"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "figlet-rs",
 ]
 
 [[package]]
@@ -138,6 +139,12 @@ dependencies = [
  "cc",
  "libc",
 ]
+
+[[package]]
+name = "figlet-rs"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4742a071cd9694fc86f9fa1a08fa3e53d40cc899d7ee532295da2d085639fbc5"
 
 [[package]]
 name = "heck"
