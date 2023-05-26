@@ -17,7 +17,11 @@ fn main() -> std::io::Result<()> {
     let ansi_shadow_font = FIGfont::from_file("resources/ANSIShadow.flf").unwrap();
     let figure = ansi_shadow_font.convert("CLIM");
     assert!(figure.is_some());
-    println!("{}", figure.unwrap());
+    print!("{}", figure.unwrap());
+    println!("Welcome to CLIM (Command Line Interface Manager)!!");
+    println!("Author: AlphaByte-RedTeam <andrew.avv03@gmail.com>");
+    println!("Current version: {}", env!("CARGO_PKG_VERSION"));
+    println!("");
 
     // Create a selectable options in the terminal
     let items: Vec<&str> = vec!["Upgrade", "Check version"];
