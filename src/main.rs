@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
     println!("{}", figure.unwrap());
 
     // Create a selectable options in the terminal
-    let items: Vec<&str> = vec!["Install", "Upgrade", "Uninstall", "Check version"];
+    let items: Vec<&str> = vec!["Upgrade", "Check version"];
     let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Select an item")
         .items(&items)
