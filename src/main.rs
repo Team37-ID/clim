@@ -92,7 +92,9 @@ fn main() -> std::io::Result<()> {
                 }
             }
 
-            if index == 1 {}
+            if index == 1 {
+                // TODO: Add check package manager version
+            }
         }
         None => println!("User did not select any item"),
     }
