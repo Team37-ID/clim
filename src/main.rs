@@ -98,10 +98,51 @@ fn main() -> std::io::Result<()> {
 
                     None => println!("User did not select any item"),
                 }
-            }
+            } else if index == 1 {
+                match package_managers_selection {
+                    Some(index) => {
+                        if cfg!(target_os = "windows") {
+                            if index == 0 {
+                                let command = Command::new(NPM)
+                                    .args(&["--version"])
+                                    .output()
+                                    .expect("Failed to execute process");
 
-            if index == 1 {
-                // TODO: Add check package manager version
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+                            } else if index == 1 {
+                                let command = Command::new(YARN)
+                                    .args(&["--version"])
+                                    .output()
+                                    .expect("Failed to execute process");
+
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+                            } else if index == 2 {
+                                let command = Command::new(PNPM)
+                                    .args(&["--version"])
+                                    .output()
+                                    .expect("Failed to execute process");
+
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+                            } else if index == 3 {
+                                let command = Command::new(PIP)
+                                    .args(&["--version"])
+                                    .output()
+                                    .expect("Failed to execute process");
+
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+                            } else if index == 4 {
+                                let command = Command::new(RUSTUP)
+                                    .args(&["--version"])
+                                    .output()
+                                    .expect("Failed to execute process");
+
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+                            }
+                        };
+                    }
+
+                    None => println!("User did not select any item"),
+                }
             }
         }
         None => println!("User did not select any item"),
