@@ -31,39 +31,25 @@ fn main() -> std::io::Result<()> {
         .default(0)
         .interact_on_opt(&Term::stderr())?;
 
-    let upgrade_items: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup"];
-    let upgrade_selection = Select::with_theme(&ColorfulTheme::default())
+    let package_managers: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup"];
+    let package_managers_selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Select which package manager to upgrade")
-        .items(&upgrade_items)
+        .items(&package_managers)
         .default(0)
         .interact_on_opt(&Term::stderr())?;
 
     match selection {
         Some(index) => {
             if index == 0 {
-                match upgrade_selection {
+                match package_managers_selection {
                     Some(index) => {
                         if cfg!(target_os = "windows") {
                             if index == 0 || index == 1 || index == 2 {
                                 let command = Command::new(NPM)
-                                    .args(&["install", "-g", &upgrade_items[index].to_lowercase()])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-
-                                println!(
-                                    "{} has been upgraded successfully!!",
-                                    upgrade_items[index]
-                                );
-                            }
-
-                            if index == 3 {
-                                let command = Command::new(PIP)
                                     .args(&[
                                         "install",
-                                        "--upgrade",
-                                        &upgrade_items[index].to_lowercase(),
+                                        "-g",
+                                        &package_managers[index].to_lowercase(),
                                     ])
                                     .output()
                                     .expect("Failed to execute process");
@@ -72,7 +58,25 @@ fn main() -> std::io::Result<()> {
 
                                 println!(
                                     "{} has been upgraded successfully!!",
-                                    upgrade_items[index]
+                                    package_managers[index]
+                                );
+                            }
+
+                            if index == 3 {
+                                let command = Command::new(PIP)
+                                    .args(&[
+                                        "install",
+                                        "--upgrade",
+                                        &package_managers[index].to_lowercase(),
+                                    ])
+                                    .output()
+                                    .expect("Failed to execute process");
+
+                                println!("{}", String::from_utf8_lossy(&command.stdout));
+
+                                println!(
+                                    "{} has been upgraded successfully!!",
+                                    package_managers[index]
                                 );
                             }
 
@@ -86,7 +90,7 @@ fn main() -> std::io::Result<()> {
 
                                 println!(
                                     "{} has been upgraded successfully!!",
-                                    upgrade_items[index]
+                                    package_managers[index]
                                 );
                             }
                         };
