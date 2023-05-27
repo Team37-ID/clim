@@ -33,7 +33,7 @@ fn main() -> std::io::Result<()> {
 
     let package_managers: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup"];
     let package_managers_selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select which package manager to upgrade")
+        .with_prompt("Select which package manager")
         .items(&package_managers)
         .default(0)
         .interact_on_opt(&Term::stderr())?;
