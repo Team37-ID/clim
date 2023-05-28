@@ -23,11 +23,11 @@ Often as a software engineer, you are working with a multiple programming langua
 
 ## Screenshots
 
-![SS1](https://i.imgur.com/VcQWNjT.png)
+![SS1](https://i.imgur.com/VcQWNjT.png) <br>
 _Main menu_
 
-![SS2](https://i.imgur.com/xpKNMk3.png)
+![SS2](https://i.imgur.com/xpKNMk3.png) <br>
 _Check version menu_
 
-![SS3](https://i.imgur.com/ivzHJat.png)
+![SS3](https://i.imgur.com/ivzHJat.png) <br>
 _Checking NPM version_
