@@ -1,6 +1,6 @@
 use dialoguer::{console::Term, theme::ColorfulTheme, Select};
 use figlet_rs::FIGfont;
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 #[cfg(windows)]
 pub const NPM: &'static str = "npm.cmd";
@@ -9,19 +9,9 @@ pub const YARN: &'static str = "yarn.cmd";
 pub const PIP: &'static str = "pip";
 pub const RUSTUP: &'static str = "rustup";
 
-fn main() -> std::io::Result<()> {
-    // Clear the terminal before displaying the CLIM ASCII art
-    clearscreen::clear().expect("Failed to clear screen");
-
-    // Display the CLIM ASCII art in ANSI Shadow font
-    let ansi_shadow_font = FIGfont::from_file("resources/ANSIShadow.flf").unwrap();
-    let figure = ansi_shadow_font.convert("CLIM");
-    assert!(figure.is_some());
-    print!("{}", figure.unwrap());
-    println!("Welcome to CLIM (Command Line Interface Manager)!!");
-    println!("Author: AlphaByte-RedTeam <andrew.avv03@gmail.com>");
-    println!("Current version: {}", env!("CARGO_PKG_VERSION"));
-    println!("");
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    clear_terminal();
+    display_info();
 
     // Create a selectable options in the terminal
     let items: Vec<&str> = vec!["Upgrade", "Check version"];
@@ -147,6 +137,23 @@ fn main() -> std::io::Result<()> {
         }
         None => println!("User did not select any item"),
     }
+
+    Ok(())
+}
+
+fn clear_terminal() -> Result<(), Box<dyn std::error::Error>> {
+    clearscreen::clear().expect("Failed to clear screen");
+    Ok(())
+}
+
+fn display_info() -> Result<(), Box<dyn std::error::Error>> {
+    let ansi_shadow_font = FIGfont::from_file("resources/ANSIShadow.flf").unwrap();
+    let figure = ansi_shadow_font.convert("CLIM");
+    assert!(figure.is_some());
+    print!("{}", figure.unwrap());
+    println!("Welcome to CLIM (Command Line Interface Manager)!!");
+    println!("Author: AlphaByte-RedTeam <andrew.avv03@gmail.com>");
+    println!("Current version: {}\n", env!("CARGO_PKG_VERSION"));
 
     Ok(())
 }
