@@ -10,8 +10,8 @@ pub const PIP: &'static str = "pip";
 pub const RUSTUP: &'static str = "rustup";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    clear_terminal();
-    display_info();
+    clear_terminal().unwrap();
+    display_info().unwrap();
 
     // Create a selectable options in the terminal
     let items: Vec<&str> = vec!["Upgrade", "Check version"];
