@@ -90,7 +90,6 @@ fn upgrade_package_manager(package_manager: &str) {
 
     let output = command.expect("Failed to execute a process");
     println!("{}", String::from_utf8_lossy(&output.stdout));
-    // println!("Successfully upgrade {}", package_manager.green());
     println!(
         "{} {}",
         package_manager.green().bold(),
