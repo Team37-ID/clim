@@ -10,11 +10,16 @@ Often as a software engineer, you are working with a multiple programming langua
 
 ## How to Use Clim
 
+> For Windows user:
+
 1. Download the executable file from the [download channel](#download-channel).
 2. Save the file where it was downloaded
-3. Open the command prompt
-4. Type `clim` and press enter
-5. Navigate through the options via arrow key and enter
+3. Create a folder in `C:\Program Files\` and name it to `clim`
+4. Move the file to `C:\Program Files\clim`
+5. Now, edit the environment variable and add `C:\Program Files\clim` to the path
+6. If you have any command prompt open, close it and reopen the command prompt
+7. Type `clim` and press enter
+8. Navigate through the options via arrow key and enter
 
 ## Screenshots
 
