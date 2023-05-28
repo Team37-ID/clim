@@ -26,55 +26,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 match package_managers_selection {
                     Some(index) => {
                         if cfg!(target_os = "windows") {
-                            if index == 0 || index == 1 || index == 2 {
-                                let command = Command::new(NPM)
-                                    .args(&[
-                                        "install",
-                                        "-g",
-                                        &package_managers[index].to_lowercase(),
-                                    ])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-
-                                println!(
-                                    "{} has been upgraded successfully!!",
-                                    package_managers[index]
-                                );
-                            }
-
-                            if index == 3 {
-                                let command = Command::new(PIP)
-                                    .args(&[
-                                        "install",
-                                        "--upgrade",
-                                        &package_managers[index].to_lowercase(),
-                                    ])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-
-                                println!(
-                                    "{} has been upgraded successfully!!",
-                                    package_managers[index]
-                                );
-                            }
-
-                            if index == 4 {
-                                let command = Command::new(RUSTUP)
-                                    .args(&["update", "stable"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-
-                                println!(
-                                    "{} has been upgraded successfully!!",
-                                    package_managers[index]
-                                );
-                            }
+                            upgrade_package_manager(package_managers[index]);
                         };
                     }
 
@@ -125,6 +77,22 @@ fn display_info() -> Result<(), Box<dyn std::error::Error>> {
     println!("Current version: {}\n", env!("CARGO_PKG_VERSION"));
 
     Ok(())
+}
+
+fn upgrade_package_manager(package_manager: &str) {
+    let command = match package_manager {
+        "NPM" | "Yarn" | "PNPM" => Command::new(NPM)
+            .args(&["install", "-g", &package_manager.to_lowercase()])
+            .output(),
+        "Pip" => Command::new(PIP)
+            .args(&["install", "--upgrade", "pip"])
+            .output(),
+        "Rustup" => Command::new(RUSTUP).args(&["update", "stable"]).output(),
+        _ => return,
+    };
+
+    let output = command.expect("Failed to execute a process");
+    println!("{}", String::from_utf8_lossy(&output.stdout));
 }
 
 fn check_package_manager_version(package_manager: &str) {
