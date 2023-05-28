@@ -15,18 +15,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Create a selectable options in the terminal
     let items: Vec<&str> = vec!["Upgrade", "Check version"];
-    let selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select an item")
-        .items(&items)
-        .default(0)
-        .interact_on_opt(&Term::stderr())?;
+    let selection = select_options(&items, "Select an options")?;
 
     let package_managers: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup"];
-    let package_managers_selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select which package manager")
-        .items(&package_managers)
-        .default(0)
-        .interact_on_opt(&Term::stderr())?;
+    let package_managers_selection = select_options(&package_managers, "Select a package manager")?;
 
     match selection {
         Some(index) => {
@@ -139,6 +131,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     Ok(())
+}
+
+fn select_options(
+    options: &Vec<&str>,
+    prompt: &str,
+) -> Result<Option<usize>, Box<dyn std::error::Error>> {
+    let selection = Select::with_theme(&ColorfulTheme::default())
+        .with_prompt(prompt)
+        .items(options)
+        .default(0)
+        .interact_on_opt(&Term::stderr())?;
+    Ok(selection)
 }
 
 fn clear_terminal() -> Result<(), Box<dyn std::error::Error>> {
