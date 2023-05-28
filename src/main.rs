@@ -84,42 +84,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 match package_managers_selection {
                     Some(index) => {
                         if cfg!(target_os = "windows") {
-                            if index == 0 {
-                                let command = Command::new(NPM)
-                                    .args(&["--version"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-                            } else if index == 1 {
-                                let command = Command::new(YARN)
-                                    .args(&["--version"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-                            } else if index == 2 {
-                                let command = Command::new(PNPM)
-                                    .args(&["--version"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-                            } else if index == 3 {
-                                let command = Command::new(PIP)
-                                    .args(&["--version"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-                            } else if index == 4 {
-                                let command = Command::new(RUSTUP)
-                                    .args(&["--version"])
-                                    .output()
-                                    .expect("Failed to execute process");
-
-                                println!("{}", String::from_utf8_lossy(&command.stdout));
-                            }
+                            check_package_manager_version(package_managers[index]);
                         };
                     }
 
@@ -160,4 +125,18 @@ fn display_info() -> Result<(), Box<dyn std::error::Error>> {
     println!("Current version: {}\n", env!("CARGO_PKG_VERSION"));
 
     Ok(())
+}
+
+fn check_package_manager_version(package_manager: &str) {
+    let command = match package_manager {
+        "NPM" => Command::new(NPM).arg("--version").output(),
+        "Yarn" => Command::new(YARN).arg("--version").output(),
+        "PNPM" => Command::new(PNPM).arg("--version").output(),
+        "Pip" => Command::new(PIP).arg("--version").output(),
+        "Rustup" => Command::new(RUSTUP).arg("--version").output(),
+        _ => return,
+    };
+
+    let output = command.expect("Failed to execute a process");
+    println!("{}", String::from_utf8_lossy(&output.stdout));
 }
