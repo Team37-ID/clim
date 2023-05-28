@@ -1,6 +1,6 @@
 use dialoguer::{console::Term, theme::ColorfulTheme, Select};
 use figlet_rs::FIGfont;
-use std::process::{Command, Stdio};
+use std::process::Command;
 
 #[cfg(windows)]
 pub const NPM: &'static str = "npm.cmd";
