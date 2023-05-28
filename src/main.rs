@@ -69,9 +69,15 @@ fn display_info() -> Result<(), Box<dyn std::error::Error>> {
     let figure = ansi_shadow_font.convert("CLIM");
     assert!(figure.is_some());
     print!("{}", figure.unwrap());
-    println!("Welcome to CLIM (Command Line Interface Manager)!!");
-    println!("Author: AlphaByte-RedTeam <andrew.avv03@gmail.com>");
-    println!("Current version: {}\n", env!("CARGO_PKG_VERSION"));
+    println!(
+        "Welcome to {}!!",
+        "CLIM (Command Line Interface Manager)".yellow().bold()
+    );
+    println!(
+        "Author: AlphaByte-RedTeam <{}>",
+        "andrew.avv03@gmail.com".yellow().underline()
+    );
+    println!("Current version: {}\n", env!("CARGO_PKG_VERSION").yellow());
 
     Ok(())
 }
