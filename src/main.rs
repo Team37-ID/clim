@@ -65,7 +65,7 @@ fn clear_terminal() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn display_info() -> Result<(), Box<dyn std::error::Error>> {
-    let ansi_shadow_font = FIGfont::from_file("resources/ANSIShadow.flf").unwrap();
+    let ansi_shadow_font = FIGfont::standard().unwrap();
     let figure = ansi_shadow_font.convert("CLIM");
     assert!(figure.is_some());
     print!("{}", figure.unwrap());
