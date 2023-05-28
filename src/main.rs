@@ -22,25 +22,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     match selection {
         Some(index) => {
-            if index == 0 {
-                match package_managers_selection {
-                    Some(index) => {
-                        if cfg!(target_os = "windows") {
+            if cfg!(target_os = "windows") {
+                if index == 0 {
+                    match package_managers_selection {
+                        Some(index) => {
                             upgrade_package_manager(package_managers[index]);
-                        };
+                        }
+                        None => println!("User did not select any item"),
                     }
-
-                    None => println!("User did not select any item"),
-                }
-            } else if index == 1 {
-                match package_managers_selection {
-                    Some(index) => {
-                        if cfg!(target_os = "windows") {
+                } else if index == 1 {
+                    match package_managers_selection {
+                        Some(index) => {
                             check_package_manager_version(package_managers[index]);
-                        };
+                        }
+                        None => println!("User did not select any item"),
                     }
-
-                    None => println!("User did not select any item"),
                 }
             }
         }
