@@ -9,6 +9,7 @@ pub const PNPM: &'static str = "pnpm.cmd";
 pub const YARN: &'static str = "yarn.cmd";
 pub const PIP: &'static str = "pip";
 pub const RUSTUP: &'static str = "rustup";
+pub const FLUTTER: &'static str = "flutter.bat";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     clear_terminal().unwrap();
@@ -18,7 +19,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let items: Vec<&str> = vec!["Upgrade", "Check version"];
     let selection = select_options(&items, "Select an options")?;
 
-    let package_managers: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup"];
+    let package_managers: Vec<&str> = vec!["NPM", "Yarn", "PNPM", "Pip", "Rustup", "Flutter"];
     let package_managers_selection = select_options(&package_managers, "Select a package manager")?;
 
     match selection {
@@ -91,6 +92,7 @@ fn upgrade_package_manager(package_manager: &str) {
             .args(&["install", "--upgrade", "pip"])
             .output(),
         "Rustup" => Command::new(RUSTUP).args(&["update", "stable"]).output(),
+        "Flutter" => Command::new(FLUTTER).arg("upgrade").output(),
         _ => return,
     };
 
@@ -110,6 +112,7 @@ fn check_package_manager_version(package_manager: &str) {
         "PNPM" => Command::new(PNPM).arg("--version").output(),
         "Pip" => Command::new(PIP).arg("--version").output(),
         "Rustup" => Command::new(RUSTUP).arg("--version").output(),
+        "Flutter" => Command::new(FLUTTER).arg("--version").output(),
         _ => return,
     };
 
