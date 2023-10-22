@@ -3,7 +3,7 @@ use figlet_rs::FIGfont;
 use owo_colors::OwoColorize;
 use std::process::Command;
 
-#[cfg(windows)]
+//#[cfg(windows)]
 pub const NPM: &'static str = "npm.cmd";
 pub const PNPM: &'static str = "pnpm.cmd";
 pub const YARN: &'static str = "yarn.cmd";
