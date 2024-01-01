@@ -85,8 +85,11 @@ fn display_info() -> Result<(), Box<dyn std::error::Error>> {
 
 fn upgrade_package_manager(package_manager: &str) {
     let command = match package_manager {
-        "NPM" | "Yarn" | "PNPM" => Command::new(NPM)
+        "NPM" | "Yarn" => Command::new(NPM)
             .args(&["install", "-g", &package_manager.to_lowercase()])
+            .output(),
+        "PNPM" => Command::new(PNPM)
+            .args(&["add", "-g", "@pnpm/exe"])
             .output(),
         "Pip" => Command::new(PIP)
             .args(&["install", "--upgrade", "pip"])
